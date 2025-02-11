@@ -19,69 +19,85 @@ const maxNumberOfAttempts = 5;
 // > getRandomNumber(1, 50)
 // <- 11
 function getRandomNumber(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min; /*added +1 to include the max number in the range*/
 }
 
 function checkGuess() {
   // Get value from guess input element
-  const guess = parseInt(guessInput.value, 10);
-  attempts = attempts + 1;
+  const guess = parseInt(guessInput.value.trim(), 10);
+
+  if (isNaN(guess)) { /*added this loop to check to see if input is invalid*/
+    numberOfGuessesMessage.style.display = '';
+    numberOfGuessesMessage.innerHTML = 'Please enter a valid number between 1 and 99.';
+    return; /*added return to stop the function if the input is invalid*/
+  }
+
+attempts++; /*corrected increment*/
 
   hideAllMessages();
 
   if (guess === targetNumber) {
     numberOfGuessesMessage.style.display = '';
-    numberOfGuessesMessage.innerHTML = `You made ${attempts} guesses`;
+    numberOfGuessesMessage.innerHTML = `You guessed the correct number in  ${attempts} guesses`;
 
     correctMessage.style.display = '';
 
     submitButton.disabled = true;
     guessInput.disabled = true;
+    return; /*added return to stop the function if the guess is correct*/
   }
 
-  if (guess !== targetNumber) {
     if (guess < targetNumber) {
       tooLowMessage.style.display = '';
-    } else {
-      tooLowMessage.style.display = '';
+      tooLowMessage.innerHTML = `Your guess of ${guess} is too low. Try again!`; /*added a more precise tooLowMessage*/
+    } else if (guess > targetNumber) { /*changed "if" to "else if" to make the code more efficient*/
+      tooHighMessage.style.display = ''; /*changed tooLowMessage to tooHighMessage*/
+      tooHighMessage.innerHTML = `Your guess of ${guess} is too high. Try again!`; /*added a more precise tooHighMessage*/
     }
 
-    const remainingAttempts = maxNumberOfAttempts - attempts;
-
-    numberOfGuessesMessage.style.display = '';
-    numberOfGuessesMessage.innerHTML = `You guessed ${guess}. <br> ${remainingAttempts} guesses remaining`;
-  }
-
-  if (attempts ==== maxNumberOfAttempts) {
+  if (attempts === maxNumberOfAttempts) { /*removed one = sign to debug*/
+    maxGuessesMessage.style.display = ''; /*added maxGuessesMessage.style.display = ''; to display the message when attempts run out*/
+    numberOfGuessesMessage.innerHTML ='0 guesses left'; /*changed display to display.innerHTML*/
     submitButton.disabled = true;
     guessInput.disabled = true;
+    resetButton.style.display = '';
+    return; /*added return to stop the function if the max number of attempts is reached*/
   }
 
-  guessInput.value = '';
+  const remainingAttempts = maxNumberOfAttempts - attempts;
 
-  resetButton.style.display = '';
-}
+    numberOfGuessesMessage.style.display = '';
+    numberOfGuessesMessage.innerHTML = `You guessed ${guess}. ${remainingAttempts} guesses remaining`;
+
+    guessInput.value = ''; /*added guessInput.value = ''; to clear the input field*/
+  }
+
 
 function hideAllMessages() {
-  for (let elementIndex = 0; elementIndex <= messages.length; elementIndex++) {
+  for (let elementIndex = 0; elementIndex < messages.length; elementIndex++) { /*changed <= messages.length to < messages.length*/
     messages[elementIndex].style.display = 'none';
   }
 }
 
-funtion setup() {
+function setup() { /*changed funtion to function*/
   // Get random number
+
+  resetButton.style.display = 'none'; /*changed resetButton.style.display = 'none'; to hide the reset button*/
   targetNumber = getRandomNumber(1, 100);
+
   console.log(`target number: ${targetNumber}`);
 
   // Reset number of attempts
-  maxNumberOfAttempts = 0;
+attempts = 0; /*changed maxNumberofAttempts to attempts; maxNumberofAttempts is already defined as 5 by const*/
 
   // Enable the input and submit button
-  submitButton.disabeld = false;
+  submitButton.disabled = false; /*edited typo from "disabeld" to "disabled"*/
   guessInput.disabled = false;
 
+  // Clear the input field //
+  guessInput.value = ''; /*added guessInput.value = ''; to clear the input field*/
+
   hideAllMessages();
-  resetButton.style.display = 'none';
 }
 
 submitButton.addEventListener('click', checkGuess);
