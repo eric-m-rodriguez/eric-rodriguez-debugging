@@ -38,7 +38,6 @@ attempts++; /*corrected increment*/
 
   if (guess === targetNumber) {
     correctMessage.style.display = '';
-    correctMessage.style.display = '';
     correctMessage.innerHTML = `You guessed the correct number in  ${attempts} guesses`;
 
     submitButton.disabled = true;
@@ -56,7 +55,7 @@ attempts++; /*corrected increment*/
 
   if (attempts === maxNumberOfAttempts) { /*removed one = sign to debug*/
     maxGuessesMessage.style.display = ''; /*added maxGuessesMessage.style.display = ''; to display the message when attempts run out*/
-    numberOfGuessesMessage.innerHTML ='0 guesses remaining'; /*changed display to display.innerHTML*/
+    numberOfGuessesMessage.innerHTML =`You guessed ${guess}. ${remainingAttempts} guesses remaining`; /*changed display to display.innerHTML*/
     submitButton.disabled = true;
     guessInput.disabled = true;
     resetButton.style.display = '';
