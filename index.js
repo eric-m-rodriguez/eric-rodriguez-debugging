@@ -41,6 +41,7 @@ attempts++; /*corrected increment*/
     correctMessage.innerHTML = `You guessed ${guess}. Correct!`; /*updated for clarity and consistency with other messages*/
     submitButton.disabled = true;
     guessInput.disabled = true;
+    resetButton.style.display = ''; /*Reset button is displayed when the correct number is guessed*/
     return; /*added return to stop the function if the guess is correct*/
   }
 
