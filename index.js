@@ -37,10 +37,10 @@ attempts++; /*corrected increment*/
   hideAllMessages();
 
   if (guess === targetNumber) {
-    numberOfGuessesMessage.style.display = '';
-    numberOfGuessesMessage.innerHTML = `You guessed the correct number in  ${attempts} guesses`;
-
+    hideAllMessages();
     correctMessage.style.display = '';
+    correctMessage.style.display = '';
+    correctMessage.innerHTML = `You guessed the correct number in  ${attempts} guesses`;
 
     submitButton.disabled = true;
     guessInput.disabled = true;
@@ -57,7 +57,7 @@ attempts++; /*corrected increment*/
 
   if (attempts === maxNumberOfAttempts) { /*removed one = sign to debug*/
     maxGuessesMessage.style.display = ''; /*added maxGuessesMessage.style.display = ''; to display the message when attempts run out*/
-    numberOfGuessesMessage.innerHTML ='0 guesses left'; /*changed display to display.innerHTML*/
+    numberOfGuessesMessage.innerHTML ='0 guesses remaining'; /*changed display to display.innerHTML*/
     submitButton.disabled = true;
     guessInput.disabled = true;
     resetButton.style.display = '';
@@ -83,19 +83,23 @@ function setup() { /*changed funtion to function*/
   // Get random number
 
   resetButton.style.display = 'none'; /*changed resetButton.style.display = 'none'; to hide the reset button*/
+  hideAllMessages(); /*hide messages and the reset button when script initially runs*/
   targetNumber = getRandomNumber(1, 100);
 
-  console.log(`target number: ${targetNumber}`);
-
   // Reset number of attempts
-attempts = 0; /*changed maxNumberofAttempts to attempts; maxNumberofAttempts is already defined as 5 by const*/
-
-  // Enable the input and submit button
+  attempts = 0; /*changed maxNumberofAttempts to attempts; maxNumberofAttempts is already defined as 5 by const*/
   submitButton.disabled = false; /*edited typo from "disabeld" to "disabled"*/
   guessInput.disabled = false;
-
+  
+    // Enable the input and submit button
   // Clear the input field //
   guessInput.value = ''; /*added guessInput.value = ''; to clear the input field*/
+  console.log(`target number: ${targetNumber}`);
+
+
+
+
+
 
   hideAllMessages();
 }
