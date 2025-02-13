@@ -23,24 +23,31 @@ function getRandomNumber(min, max) {
 }
 
 function checkGuess() {
+  hideAllMessages(); /*hide all messages before any content*/
+
   // Get value from guess input element
   const guess = parseInt(guessInput.value.trim(), 10);
 
-  if (isNaN(guess)) { /*added this loop to check to see if input is invalid*/
-    numberOfGuessesMessage.style.display = '';
+ /*added this loop to check to see if input is invalid*/
+    if (isNaN(guess) || guess < 1 || guess > 99) {/*added range check to validate number is between 1 and 99*/
+      numberOfGuessesMessage.style.display = '';
     numberOfGuessesMessage.innerHTML = 'Please enter a valid number between 1 and 99.';
     return; /*added return to stop the function if the input is invalid*/
   }
 
 attempts++; /*corrected increment*/
 
-  hideAllMessages();
+  hideAllMessages(); /*hide all messages before updating the display*/
 
   if (guess === targetNumber) {
     correctMessage.style.display = '';
     correctMessage.innerHTML = `You guessed ${guess}. Correct!`; /*updated for clarity and consistency with other messages*/
     submitButton.disabled = true;
+    
+    /* Disable the input and submit button since the game is over*/
     guessInput.disabled = true;
+    
+    /*Display the reset button so user can play again*/
     resetButton.style.display = ''; /*Reset button is displayed when the correct number is guessed*/
     return; /*added return to stop the function if the guess is correct*/
   }
@@ -56,8 +63,12 @@ attempts++; /*corrected increment*/
   if (attempts === maxNumberOfAttempts) { /*removed one = sign to debug*/
     maxGuessesMessage.style.display = ''; /*added maxGuessesMessage.style.display = ''; to display the message when attempts run out*/
     numberOfGuessesMessage.innerHTML =`You guessed ${guess}. 0 guesses remaining`; /*changed display to display.innerHTML*/
+   
+   /* Disable the input and submit button since the game is over*/
     submitButton.disabled = true;
     guessInput.disabled = true;
+    
+    /*Display the reset button so user can play again*/
     resetButton.style.display = '';
     return; /*added return to stop the function if the max number of attempts is reached*/
   }
