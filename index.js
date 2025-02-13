@@ -37,7 +37,6 @@ attempts++; /*corrected increment*/
   hideAllMessages();
 
   if (guess === targetNumber) {
-    hideAllMessages();
     correctMessage.style.display = '';
     correctMessage.style.display = '';
     correctMessage.innerHTML = `You guessed the correct number in  ${attempts} guesses`;
@@ -49,10 +48,10 @@ attempts++; /*corrected increment*/
 
     if (guess < targetNumber) {
       tooLowMessage.style.display = '';
-      tooLowMessage.innerHTML = `Your guess of ${guess} is too low. Try again!`; /*added a more precise tooLowMessage*/
+      tooLowMessage.innerHTML = `Too low`; /*added a more precise tooLowMessage*/
     } else if (guess > targetNumber) { /*changed "if" to "else if" to make the code more efficient*/
       tooHighMessage.style.display = ''; /*changed tooLowMessage to tooHighMessage*/
-      tooHighMessage.innerHTML = `Your guess of ${guess} is too high. Try again!`; /*added a more precise tooHighMessage*/
+      tooHighMessage.innerHTML = `Too high`; /*added a more precise tooHighMessage*/
     }
 
   if (attempts === maxNumberOfAttempts) { /*removed one = sign to debug*/
@@ -95,13 +94,6 @@ function setup() { /*changed funtion to function*/
   // Clear the input field //
   guessInput.value = ''; /*added guessInput.value = ''; to clear the input field*/
   console.log(`target number: ${targetNumber}`);
-
-
-
-
-
-
-  hideAllMessages();
 }
 
 submitButton.addEventListener('click', checkGuess);
