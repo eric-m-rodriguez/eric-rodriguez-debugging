@@ -38,8 +38,7 @@ attempts++; /*corrected increment*/
 
   if (guess === targetNumber) {
     correctMessage.style.display = '';
-    correctMessage.innerHTML = `You guessed the correct number in  ${attempts} guesses`;
-
+    correctMessage.innerHTML = `You guessed ${guess}. Correct!`; /*updated for clarity and consistency with other messages*/
     submitButton.disabled = true;
     guessInput.disabled = true;
     return; /*added return to stop the function if the guess is correct*/
@@ -47,15 +46,15 @@ attempts++; /*corrected increment*/
 
     if (guess < targetNumber) {
       tooLowMessage.style.display = '';
-      tooLowMessage.innerHTML = `Too low`; /*added a more precise tooLowMessage*/
+      tooLowMessage.innerHTML = `You guessed ${guess}. Too low`; /*added a more precise tooLowMessage*/
     } else if (guess > targetNumber) { /*changed "if" to "else if" to make the code more efficient*/
       tooHighMessage.style.display = ''; /*changed tooLowMessage to tooHighMessage*/
-      tooHighMessage.innerHTML = `Too high`; /*added a more precise tooHighMessage*/
+      tooHighMessage.innerHTML = `You guessed ${guess}. Too high`; /*added a more precise tooHighMessage*/
     }
 
   if (attempts === maxNumberOfAttempts) { /*removed one = sign to debug*/
     maxGuessesMessage.style.display = ''; /*added maxGuessesMessage.style.display = ''; to display the message when attempts run out*/
-    numberOfGuessesMessage.innerHTML =`You guessed ${guess}. ${remainingAttempts} guesses remaining`; /*changed display to display.innerHTML*/
+    numberOfGuessesMessage.innerHTML =`You guessed ${guess}. 0 guesses remaining`; /*changed display to display.innerHTML*/
     submitButton.disabled = true;
     guessInput.disabled = true;
     resetButton.style.display = '';
@@ -74,6 +73,7 @@ attempts++; /*corrected increment*/
 function hideAllMessages() {
   for (let elementIndex = 0; elementIndex < messages.length; elementIndex++) { /*changed <= messages.length to < messages.length*/
     messages[elementIndex].style.display = 'none';
+    messages[elementIndex].innerHTML = ''; /*added messages[elementIndex].innerHTML = ''; to clear the messages when they are hidden*/
   }
 }
 
