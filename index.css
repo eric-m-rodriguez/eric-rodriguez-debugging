@@ -11,5 +11,7 @@ main {
 }
 
 #reset {
+  display: none; /* hide the reset button initially */
   margin: 20px;
 }
+
